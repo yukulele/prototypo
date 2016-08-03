@@ -1,8 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Lifespan from 'lifespan';
-
+/* #if offline */
+import HoodieApi from '../services/fake-hoodie.services.js';
+/* #end*/
+/* #if prod,debug */
 import HoodieApi from '../services/hoodie.services.js';
+/* #end*/
 import LocalClient from '../stores/local-client.stores.jsx';
 
 import FormError from './shared/form-error.components.jsx';

@@ -1,4 +1,9 @@
+/* #if offline */
+import HoodieApi from './fake-hoodie.services.js';
+/* #end*/
+/* #if prod,debug */
 import HoodieApi from './hoodie.services.js';
+/* #end*/
 
 class SubscriptionService {
 	static myCards() {

@@ -132,8 +132,12 @@ import SubscriptionAccountInfo from './components/account/subscription-account-i
 import SubscriptionAddCard from './components/account/subscription-add-card.components.jsx';
 import SubscriptionBillingAddress from './components/account/subscription-billing-address.components.jsx';
 import SubscriptionConfirmation from './components/account/subscription-confirmation.components.jsx';
-
+/* #if offline */
+import HoodieApi from './services/fake-hoodie.services.js';
+/* #end*/
+/* #if prod,debug */
 import HoodieApi from './services/hoodie.services.js';
+/* #end*/
 import {FontValues} from './services/values.services.js';
 import LocalClient from './stores/local-client.stores.jsx';
 import LocalServer from './stores/local-server.stores.jsx';
@@ -265,7 +269,7 @@ async function createStores() {
 		await eventDebugger.replayEventFromFile();
 	}
 	/* #end */
-	/* #if prod */
+	/* #if prod,offline */
 	try {
 		await HoodieApi.setup();
 
@@ -277,20 +281,6 @@ async function createStores() {
 
 		window.dispatchEvent(fontInstanceLoaded);
 	}
-	/* #end */
-	/* #if offline */
-	try {
-		await HoodieApi.offlineSetup();
-
-		await loadStuff();
-	}
-	catch (err) {
-		console.log(err);
-		const fontInstanceLoaded = new Event('fontInstance.loaded');
-
-		window.dispatchEvent(fontInstanceLoaded);
-	}
-	console.log('offline');
 	/* #end */
 }
 

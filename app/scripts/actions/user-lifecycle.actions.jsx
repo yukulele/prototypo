@@ -5,7 +5,12 @@ import md5 from 'md5';
 import {userStore, couponStore, prototypoStore} from '../stores/creation.stores.jsx';
 import LocalServer from '../stores/local-server.stores.jsx';
 import LocalClient from '../stores/local-client.stores.jsx';
+/* #if offline */
+import HoodieApi from '../services/fake-hoodie.services.js';
+/* #end*/
+/* #if prod,debug */
 import HoodieApi from '../services/hoodie.services.js';
+/* #end*/
 import {loadStuff} from '../helpers/appSetup.helpers.js';
 import {AccountValues} from '../services/values.services.js';
 
