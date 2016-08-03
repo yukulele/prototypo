@@ -206,6 +206,9 @@ const localServer = new LocalServer(stores, {
 /* #if prod */
 const localServer = new LocalServer(stores).instance;
 /* #end */
+/* #if offline */
+const localServer = new LocalServer(stores).instance;
+/* #end */
 
 LocalClient.setup(localServer);
 const fluxEvent = new Event('fluxServer.setup');
@@ -274,6 +277,20 @@ async function createStores() {
 
 		window.dispatchEvent(fontInstanceLoaded);
 	}
+	/* #end */
+	/* #if offline */
+	try {
+		await HoodieApi.offlineSetup();
+
+		await loadStuff();
+	}
+	catch (err) {
+		console.log(err);
+		const fontInstanceLoaded = new Event('fontInstance.loaded');
+
+		window.dispatchEvent(fontInstanceLoaded);
+	}
+	console.log('offline');
 	/* #end */
 }
 
