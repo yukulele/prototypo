@@ -105,7 +105,7 @@
   "scripts": {
     "start": "gulp serve",
     "debug": "gulp debug",
-	"offline": "gulp offline"
+    "offline": "gulp offline"
   },
   "repository": {
     "type": "git",
