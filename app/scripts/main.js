@@ -327,7 +327,9 @@ function noConfirmBeforePlan(nextState, replace) {
 }
 
 function trackUrl() {
+	/* #if prod */
 	ga('send', 'pageview', {page: this.state.location.pathname});
+	/* #end */
 }
 
 window.addEventListener('unload', () => {

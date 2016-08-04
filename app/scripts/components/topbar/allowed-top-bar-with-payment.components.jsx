@@ -22,6 +22,7 @@ export default class AllowedTopBarWithPayment extends React.Component {
 	componentDidMount() {
 		const url = '//freegeoip.net/json/';
 
+		/* #if prod */
 		fetch(url)
 			.then((response) => {
 				if (response) {
@@ -43,6 +44,7 @@ export default class AllowedTopBarWithPayment extends React.Component {
 			.catch((error) => {
 				console.log(error);
 			});
+		/* #end */
 	}
 
 	render() {

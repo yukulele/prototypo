@@ -94,7 +94,9 @@ export default {
 		fontInstance.download(() => {
 			localClient.dispatchAction('/store-value', {uiOnboardstep: 'end'});
 			localClient.dispatchAction('/exporting', {exporting: false});
+			/* #if prod */
 			window.Intercom('trackEvent', 'export-otf');
+			/* #end */
 			clearTimeout(exportingError);
 			spendCreditsAction();
 		}, name, merged, undefined, HoodieApi.instance.email);
