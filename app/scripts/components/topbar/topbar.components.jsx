@@ -31,6 +31,7 @@ export default class Topbar extends React.Component {
 			credits: undefined,
 			plan: undefined,
 			creditChoices: undefined,
+			isOnline: true,
 		};
 		this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
@@ -54,6 +55,7 @@ export default class Topbar extends React.Component {
 					to: head.toJS().undoTo,
 					from: head.toJS().undoFrom,
 					eventList: head.toJS().undoEventList,
+					isOnline: head.toJS().isOnline,
 				});
 			})
 			.onDelete(() => {
@@ -191,6 +193,16 @@ export default class Topbar extends React.Component {
 		const callToAction = !(freeAccountAndHasCredits || !freeAccount)
 			&& <TopBarMenuButton label="EXPORT YOUR FONT NOW!" noHover centered click={this.openGoProModal} alignRight/>;
 
+		const networkError = this.state.isOnline
+			? false
+			: (
+				<TopBarMenuAction
+					name="Network error detected: your work will not be saved !"
+					click={() => {return;}}
+					action={true}
+				/>
+			);
+
 		return (
 			<div id="topbar">
 				<TopBarMenu>
@@ -286,6 +298,7 @@ export default class Topbar extends React.Component {
 					</TopBarMenuDropdown>
 					{exporting}
 					{errorExporting}
+					{networkError}
 					<TopBarMenuLink link="/account" title="Account settings" img="icon-profile.svg" imgDarkBackground={true} alignRight={true} action={true}></TopBarMenuLink>
 					{creditExportLabel}
 					{callToAction}
