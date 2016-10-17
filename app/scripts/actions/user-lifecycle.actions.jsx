@@ -77,6 +77,9 @@ function addCard({card: {fullname, number, expMonth, expYear, cvc}, vat}) {
 
 			HoodieApi.updateCustomer({
 				source: data.id,
+				metadata: {
+					vat_number: vat || infos.vat,
+				},
 			})
 			.then(() => {
 				infos.card = [data.card];
