@@ -87,7 +87,7 @@ function addCard({card: {fullname, number, expMonth, expYear, cvc}, vat}) {
 				form.loading = false;
 				const patch = userStore.set('infos', infos).set('addcardForm', form).commit();
 
-				localServer.dispatchUpdate('/userSotre', patch);
+				localServer.dispatchUpdate('/userStore', patch);
 
 				resolve();
 			})
@@ -652,9 +652,11 @@ export default {
 		}).then(async (data) => {
 			const infos = _.cloneDeep(userStore.get('infos'));
 
+			form.loading = false;
 			infos.plan = data.plan.id;
 			const patch = userStore
 				.set('infos', infos)
+				.set('confirmation', form)
 				.commit();
 
 			ga('ecommerce:addTransaction', {
