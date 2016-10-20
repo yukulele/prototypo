@@ -9,6 +9,7 @@ import Log from '../services/log.services.js';
 import Button from './shared/button.components.jsx';
 import Modal from './shared/modal.components.jsx';
 import AddCard from './shared/add-card.components.jsx';
+import InputWithLabel from './shared/input-with-label.components';
 import FormError from './shared/form-error.components.jsx';
 
 export default class CreditsExport extends React.Component {
@@ -64,16 +65,9 @@ export default class CreditsExport extends React.Component {
 				}
 			})
 			.then((response) => {
-				if (response.country_code in vatrates) {
-					this.setState({
-						currency: 'EUR',
-					});
-				}
-				else {
-					this.setState({
-						currency: 'DOL',
-					});
-				}
+				this.setState({
+					currency: response.country_code in vatrates ? 'EUR' : 'DOL',
+				});
 			})
 			.catch((error) => {
 				this.setState({
@@ -94,6 +88,7 @@ export default class CreditsExport extends React.Component {
 		if (!this.state.loading) {
 			this.client.dispatchAction('/buy-credits', {
 				card: this.refs.card.data(),
+				vat: this.refs.vat.inputValue,
 				currency: this.state.currency,
 			});
 		}
@@ -128,6 +123,7 @@ export default class CreditsExport extends React.Component {
 			) : (
 				<form className="sign-in-form" onSubmit={this.handleSubmit}>
 					<AddCard ref="card" inError={this.state.inError}/>
+					<InputWithLabel ref="vat" label="VAT number" info="(only necessary if you pay with a company card)"/>
 					{errors}
 					<div className="add-family-form-buttons">
 						<Button click={this.exit} label="Cancel" neutral={true}/>
