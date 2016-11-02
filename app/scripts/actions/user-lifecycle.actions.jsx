@@ -2,7 +2,7 @@ import {hashHistory} from 'react-router';
 import Lifespan from 'lifespan';
 import debounce from 'lodash/debounce';
 
-import {userStore, couponStore, prototypoStore} from '../stores/creation.stores.jsx';
+import {userStore, prototypoStore} from '../stores/creation.stores.jsx';
 import LocalServer from '../stores/local-server.stores.jsx';
 import LocalClient from '../stores/local-client.stores.jsx';
 import HoodieApi from '../services/hoodie.services.js';

@@ -31,7 +31,6 @@ module.exports = {
 			'slug',
 			'tether',
 			'pouchdb',
-			'md5',
 			'lodash',
 			'jsdiff'
 		],
