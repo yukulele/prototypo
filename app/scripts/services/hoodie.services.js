@@ -132,6 +132,10 @@ export default class HoodieApi {
 		});
 	}
 
+	static validateCoupon({coupon, plan}) {
+		return fetchAWS(`/coupons/${coupon}?plan=${plan}`);
+	}
+
 	static updateSubscription(options) {
 		const {subscriptionId} = HoodieApi.instance;
 
